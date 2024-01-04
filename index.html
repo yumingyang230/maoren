@@ -145,8 +145,9 @@
 
 
         //计算合同价
-        var t_hetong_shiji = Math.ceil(principal * (1 + (interest - 0.068)));
-        // var t_hetong_shiji = principal
+        var t_hetong_shiji_ = (principal * (1 + (interest - 0.068))).toFixed(4)
+        var t_hetong_shiji = Math.ceil(t_hetong_shiji_);
+
         var str1 = t_hetong_shiji + "";
         var str = str1.slice(-1);
         if (str != 0) {
