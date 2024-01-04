@@ -28,11 +28,7 @@
     <tr>
         <th>输入贷款数据 :</th>
     </tr>
-    <y style="color: red">贷款金额 ≤ 评估价的75%</y>
-    <tr>
-        <td>评估价 (元):</td>
-        <td><input id="pinggu" type="text"></td>
-    </tr>
+ 
     <tr>
         <td>贷款金额 (元):</td>
         <td><input id="amount" type="text"></td>
@@ -134,21 +130,23 @@
 
         var pinggu_num = parseFloat(pinggu.value);
         var principal = parseFloat(amount.value);
-        var interest = parseFloat(apr.value) / 100 + 0.55 / 100;
+        // var interest = parseFloat(apr.value) / 100 + 0.55 / 100;
+        var interest = parseFloat(apr.value) / 100 ;
         var payments = parseInt(term.value);
 
 
-        if (pinggu_num * 0.75 < principal) {
+        // if (pinggu_num * 0.75 < principal) {
 
-            alert("请输入正确的贷款金额，贷款金额≤评估价的75%");
+        //     alert("请输入正确的贷款金额，贷款金额≤评估价的75%");
 
-            return;
+        //     return;
 
-        }
+        // }
 
 
         //计算合同价
-        var t_hetong_shiji = Math.ceil(principal * (1 + (interest - 0.0735)));
+        // var t_hetong_shiji = Math.ceil(principal * (1 + (interest - 0.0735)));
+        var t_hetong_shiji = principal
         var str1 = t_hetong_shiji + "";
         var str = str1.slice(-1);
         if (str != 0) {
@@ -170,11 +168,11 @@
         //计算首付比例
         var t_shoufubili = (t_shoufu / t_shangbao) * 100;
         //计算手续费
-        var t_shouxu = t_hetong * 0.0735;
+        var t_shouxu = t_hetong * interest;
         //计算月供
-        var t_monthly = t_hetong * (1 + 0.0735) / payments;
+        var t_monthly = t_hetong * (1 + interest) / payments;
         //计算还款总额
-        var t_total = t_hetong * (1 + 0.0735);
+        var t_total = t_hetong * (1 + interest);
         //计算附加费
         var t_fujia = t_hetong - principal;
 
