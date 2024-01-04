@@ -95,6 +95,10 @@
         <td>附加费 :</td>
         <td><span class="output" id="fujia"></span>元</td>
     </tr>
+    <tr>
+        <td>月费率 :</td>
+        <td><span class="output" id="yuefei"></span>%</td>
+    </tr>
 </table>
 
 <script type="text/javascript">
@@ -123,6 +127,8 @@
         // var yixiangdai = document.getElementById("yixiangdai");
         var fujia = document.getElementById("fujia");
         var term = document.getElementById("term");
+
+        var yuefeil = document.getElementById("yuefei");
 
         //假设所有的输入输出都是合法的，将从input元素中获取输入数据
         //将百分比格式转换为小数格式，并从年利率转换为月利率
@@ -176,7 +182,9 @@
         var t_total = t_hetong * (1 + 0.068);
         //计算附加费
         var t_fujia = t_hetong - principal;
-
+        //计算月费率 =  
+        var t_yuefei_ = ((t_total - principal) / payments / principal) * 1000 + "";
+        var t_yuefei =   t_yuefei_.substring(0,4);
         //如果结果没有超过JavaScript能表示的数字范围，且用户的输入也正确
         //这里所展示的结果就是合法的
         if (isFinite(t_hetong)) {
@@ -193,6 +201,7 @@
             // yixiang.innerHTML = t_shangbao;
             // yixiangdai.innerHTML = t_hetong;
             fujia.innerHTML = t_fujia;
+            yuefei.innerHTML = t_yuefei
         } else {
             //计算结果不是数字或者是无穷大，意味着输入数据是非法或不完整的
             //清空之前的输出数据
@@ -208,6 +217,8 @@
             // yixiang.innerHTML = "";
             // yixiangdai.innerHTML = "";
             fujia.innerHTML = "";
+            yuefei.innerHTML  = "";
+            
         }
     }
 </script>
