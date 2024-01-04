@@ -171,7 +171,7 @@
         //计算手续费
         var t_shouxu = t_hetong * 0.068;
         //计算月供
-        var t_monthly = t_hetong * (1 + 0.068) / payments;
+        var t_monthly = (t_hetong * (1 + 0.068) / payments) - 0.01;
         //计算还款总额
         var t_total = t_hetong * (1 + 0.068);
         //计算附加费
