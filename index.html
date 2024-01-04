@@ -79,7 +79,7 @@
         <td>还款总额 :</td>
         <td><span class="output" id="total"></span>元</td>
     </tr>
-    <tr>
+    <!-- <tr>
         <td>银行小票金额 :</td>
         <td><span class="output" id="xiaopiao"></span>元</td>
     </tr>
@@ -90,7 +90,7 @@
     <tr>
         <td>意向贷款额 :</td>
         <td><span class="output" id="yixiangdai"></span>元</td>
-    </tr>
+    </tr> -->
     <tr>
         <td>附加费 :</td>
         <td><span class="output" id="fujia"></span>元</td>
@@ -118,9 +118,9 @@
         var shouxu = document.getElementById("shouxu");
         var monthly = document.getElementById("monthly");
         var total = document.getElementById("total");
-        var xiaopiao = document.getElementById("xiaopiao");
-        var yixiang = document.getElementById("yixiang");
-        var yixiangdai = document.getElementById("yixiangdai");
+        // var xiaopiao = document.getElementById("xiaopiao");
+        // var yixiang = document.getElementById("yixiang");
+        // var yixiangdai = document.getElementById("yixiangdai");
         var fujia = document.getElementById("fujia");
         var term = document.getElementById("term");
 
@@ -188,9 +188,9 @@
             shouxu.innerHTML = t_shouxu.toFixed(2);
             monthly.innerHTML = t_monthly.toFixed(2);
             total.innerHTML = t_total.toFixed(2);
-            xiaopiao.innerHTML = t_hetong;
-            yixiang.innerHTML = t_shangbao;
-            yixiangdai.innerHTML = t_hetong;
+            // xiaopiao.innerHTML = t_hetong;
+            // yixiang.innerHTML = t_shangbao;
+            // yixiangdai.innerHTML = t_hetong;
             fujia.innerHTML = t_fujia;
         } else {
             //计算结果不是数字或者是无穷大，意味着输入数据是非法或不完整的
@@ -203,9 +203,9 @@
             shouxu.innerHTML = "";
             monthly.innerHTML = "";
             total.innerHTML = "";
-            xiaopiao.innerHTML = "";
-            yixiang.innerHTML = "";
-            yixiangdai.innerHTML = "";
+            // xiaopiao.innerHTML = "";
+            // yixiang.innerHTML = "";
+            // yixiangdai.innerHTML = "";
             fujia.innerHTML = "";
         }
     }
