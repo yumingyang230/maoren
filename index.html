@@ -145,8 +145,8 @@
 
 
         //计算合同价
-        // var t_hetong_shiji = Math.ceil(principal * (1 + (interest - 0.0735)));
-        var t_hetong_shiji = principal
+        var t_hetong_shiji = Math.ceil(principal * (1 + (interest - 0.068)));
+        // var t_hetong_shiji = principal
         var str1 = t_hetong_shiji + "";
         var str = str1.slice(-1);
         if (str != 0) {
@@ -168,11 +168,11 @@
         //计算首付比例
         var t_shoufubili = (t_shoufu / t_shangbao) * 100;
         //计算手续费
-        var t_shouxu = t_hetong * interest;
+        var t_shouxu = t_hetong * 0.068;
         //计算月供
-        var t_monthly = t_hetong * (1 + interest) / payments;
+        var t_monthly = t_hetong * (1 + 0.068) / payments;
         //计算还款总额
-        var t_total = t_hetong * (1 + interest);
+        var t_total = t_hetong * (1 + 0.068);
         //计算附加费
         var t_fujia = t_hetong - principal;
 
