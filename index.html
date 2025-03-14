@@ -1,226 +1,182 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>茂仁车贷计算器</title>
     <style>
-        .output {
+        :root {
+            --primary-color: #2c3e50;
+            --highlight-color: #e74c3c;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            max-width: 600px;
+            margin: 1rem auto;
+            padding: 0 1rem;
+        }
+
+        .input-group {
+            margin-bottom: 1rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem;
+            width: 100%;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .result-value {
+            color: var(--highlight-color);
             font-weight: bold;
-            border: 1px solid #767676;
-            margin-right: 5px;
-            display: inline-block;
-            width: 80%;
-            height: 23px
         }
-
-        /* 计算结果为粗体 */
-        th, td {
-            vertical-align: top;
-        }
-
-        /* 表格单元格对其方式为顶端对齐 */
     </style>
 </head>
+
 <body>
-<table>
-    <tr>
-        <th>输入贷款数据 :</th>
-    </tr>
- 
-    <tr>
-        <td>贷款金额 (元):</td>
-        <td><input id="amount" type="text"></td>
-    </tr>
-    <tr>
-        <td>利率 (%):</td>
-        <td><input id="apr" type="text"></td>
-    </tr>
-    <tr>
-        <td>期数:</td>
-        <td><input id="term" type="number" min="0" value="36"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>
-            <button onclick="calculate();" style="width: 100%;">计算</button>
-        </td>
-    </tr>
-    <tr>
-        <td>银行贷款额：</td>
-        <td><span class="output" id="hetong"></span>元</td>
-    </tr>
-    <tr>
-        <td>上报价 :</td>
-        <td><span class="output" id="shangbao"></span>元</td>
-    </tr>
-    <tr>
-        <td>车损保额 :</td>
-        <td><span class="output" id="chesun"></span>元</td>
-    </tr>
-    <tr>
-        <td>首付款 :</td>
-        <td><span class="output" id="shoufu"></span>元</td>
-    </tr>
-    <tr>
-        <td>首付比例 :</td>
-        <td><span class="output" id="shoufubili"></span>%</td>
-    </tr>
-    <tr>
-        <td>手续费 :</td>
-        <td><span class="output" id="shouxu"></span>元</td>
-    </tr>
-    <tr>
-        <td>月供 :</td>
-        <td><span class="output" id="monthly"></span>元</td>
-    </tr>
-    <tr>
-        <td>还款总额 :</td>
-        <td><span class="output" id="total"></span>元</td>
-    </tr>
-    <!-- <tr>
-        <td>银行小票金额 :</td>
-        <td><span class="output" id="xiaopiao"></span>元</td>
-    </tr>
-    <tr>
-        <td>意向价 :</td>
-        <td><span class="output" id="yixiang"></span>元</td>
-    </tr>
-    <tr>
-        <td>意向贷款额 :</td>
-        <td><span class="output" id="yixiangdai"></span>元</td>
-    </tr> -->
-    <tr>
-        <td>附加费 :</td>
-        <td><span class="output" id="fujia"></span>元</td>
-    </tr>
-    <tr>
-        <td>月费率 :</td>
-        <td><span class="output" id="yuefei"></span>%</td>
-    </tr>
-</table>
+    <div class="calculator">
+        <h1>茂仁车贷计算器</h1>
 
-<script type="text/javascript">
-    "use strict";/* 如果浏览器支持的话，则开启ECMAScript5的严格模式 */
-    /*
-        这里的脚本定义了calculate()函数,在HTML代码中绑定事件处理程序时会调用它；
-        这个函数从<input>元素中读取数据,计算贷款赔付信息，并将结果显示在<span>元素中；
-        同样,这里还保存了用户数据,展示了放款人链接并绘制出了图表
-     */
-    function calculate() {
-        //查找文档中用于输入输出的元素
+        <div class="input-group">
+            <input id="amount" type="number" placeholder="贷款金额（元）">
+        </div>
 
-        // var pinggu = document.getElementById("pinggu");
-        var amount = document.getElementById("amount");
-        var apr = document.getElementById("apr");
-        var hetong = document.getElementById("hetong");
-        var shangbao = document.getElementById("shangbao");
-        var chesun = document.getElementById("chesun");
-        var shoufu = document.getElementById("shoufu");
-        var shoufubili = document.getElementById("shoufubili");
-        var shouxu = document.getElementById("shouxu");
-        var monthly = document.getElementById("monthly");
-        var total = document.getElementById("total");
-        // var xiaopiao = document.getElementById("xiaopiao");
-        // var yixiang = document.getElementById("yixiang");
-        // var yixiangdai = document.getElementById("yixiangdai");
-        var fujia = document.getElementById("fujia");
-        var term = document.getElementById("term");
+        <div class="input-group">
+            <input id="apr" type="number" placeholder="年利率（%）" step="0.01">
+        </div>
 
-        var yuefeil = document.getElementById("yuefei");
+        <div class="input-group">
+            <input id="term" type="number" value="36" placeholder="贷款期数（月）">
+        </div>
 
-        //假设所有的输入输出都是合法的，将从input元素中获取输入数据
-        //将百分比格式转换为小数格式，并从年利率转换为月利率
-        //将年度赔付转换为月度赔付
+        <button onclick="handleCalculate()">立即计算</button>
 
-        // var pinggu_num = parseFloat(pinggu.value);
-        var principal = parseFloat(amount.value);
-        // var interest = parseFloat(apr.value) / 100 + 0.55 / 100;
-        var interest = parseFloat(apr.value) / 100 ;
-        var payments = parseInt(term.value);
+        <div id="results">
+            <div class="result-item">
+                <span>合同金额：</span>
+                <span class="result-value" id="hetong"></span>
+            </div>
+            <div class="result-item">
+                <span>上报价：</span>
+                <span class="result-value" id="shangbao"></span>
+            </div>
+            <div class="result-item">
+                <span>车损保额：</span>
+                <span class="result-value" id="chesun"></span>
+            </div>
+            <div class="result-item">
+                <span>首付款：</span>
+                <span class="result-value" id="shoufu"></span>
+            </div>
+            <div class="result-item">
+                <span>首付比例：</span>
+                <span class="result-value" id="shoufubili"></span>
+            </div>
+            <div class="result-item">
+                <span>手续费：</span>
+                <span class="result-value" id="shouxu"></span>
+            </div>
+            <div class="result-item">
+                <span>月供：</span>
+                <span class="result-value" id="monthly"></span>
+            </div>
+            <div class="result-item">
+                <span>还款总额：</span>
+                <span class="result-value" id="total"></span>
+            </div>
+            <div class="result-item">
+                <span>附加费：</span>
+                <span class="result-value" id="fujia"></span>
+            </div>
+            <div class="result-item">
+                <span>月费率：</span>
+                <span class="result-value" id="yuefei"></span>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        const Calculator = {
+            // 核心计算模块
+            calculate(inputs) {
+                const principal = parseFloat(inputs.amount) || 0;
+                const rate = (parseFloat(inputs.apr) || 0) / 100;
+                const term = parseInt(inputs.term) || 36;
+                const FEE_RATE = 0.068;
 
-        // if (pinggu_num * 0.75 < principal) {
+                // 分项计算
+                const contractAmount = Math.round(principal * (1 + rate - FEE_RATE));
+                const quoteAmount = Math.round(contractAmount / 0.7);
+                const insuranceAmount = Math.round(quoteAmount / 1.2);
+                const downPayment = quoteAmount - contractAmount;
+                const downPaymentRatio = (downPayment / quoteAmount * 100).toFixed(2);
+                const serviceFee = (contractAmount * FEE_RATE).toFixed(2);
+                const totalRepayment = (contractAmount * (1 + FEE_RATE)).toFixed(2);
+                const monthlyPayment = (contractAmount * (1 + FEE_RATE) / term - 0.01).toFixed(2);
+                const additionalFee = contractAmount - principal;
+                const monthlyRate = ((totalRepayment - principal) / principal / term * 100).toFixed(2);
 
-        //     alert("请输入正确的贷款金额，贷款金额≤评估价的75%");
+                return {
+                    hetong: this.formatCurrency(contractAmount),
+                    shangbao: this.formatCurrency(quoteAmount),
+                    chesun: this.formatCurrency(insuranceAmount),
+                    shoufu: this.formatCurrency(downPayment),
+                    shoufubili: `${downPaymentRatio}%`,
+                    shouxu: `¥${serviceFee}`,
+                    monthly: `¥${monthlyPayment}`,
+                    total: `¥${totalRepayment}`,
+                    fujia: this.formatCurrency(additionalFee),
+                    yuefei: `${monthlyRate}%`
+                };
+            },
 
-        //     return;
+            // 货币格式化
+            formatCurrency(value) {
+                return new Intl.NumberFormat('zh-CN', {
+                    style: 'currency',
+                    currency: 'CNY',
+                    maximumFractionDigits: 0
+                }).format(value);
+            }
+        };
 
-        // }
+        function handleCalculate() {
+            const inputs = {
+                amount: document.getElementById('amount').value,
+                apr: document.getElementById('apr').value,
+                term: document.getElementById('term').value
+            };
 
+            const results = Calculator.calculate(inputs);
 
-        //计算合同价
-        var t_hetong_shiji_ = (principal * (1 + (interest - 0.068))).toFixed(4)
-        var t_hetong_shiji = Math.ceil(t_hetong_shiji_);
-
-        var str1 = t_hetong_shiji + "";
-        var str = str1.slice(-1);
-        if (str != 0) {
-            var t_hetong = t_hetong_shiji - str + 10;
-        } else {
-            var t_hetong = t_hetong_shiji;
+            // 更新所有结果项
+            Object.keys(results).forEach(key => {
+                document.getElementById(key).textContent = results[key];
+            });
         }
-
-        //计算上报价
-        var t_shangbao_shiji = Math.ceil(t_hetong / 0.7);
-        var t_shangbao_shiji_str1 = t_shangbao_shiji + "";
-        var t_shangbao_shiji_str = t_shangbao_shiji_str1.slice(-2);
-        var t_shangbao = t_shangbao_shiji - t_shangbao_shiji_str + 100;
-
-        //计算车损保额
-        var t_chesun = Math.ceil(t_shangbao / 1.2);
-        //计算首付款
-        var t_shoufu = t_shangbao - t_hetong;
-        //计算首付比例
-        var t_shoufubili = (t_shoufu / t_shangbao) * 100;
-        //计算手续费
-        var t_shouxu = t_hetong * 0.068;
-        //计算月供
-        var t_monthly = (t_hetong * (1 + 0.068) / payments) - 0.01;
-        //计算还款总额
-        var t_total = t_hetong * (1 + 0.068);
-        //计算附加费
-        var t_fujia = t_hetong - principal;
-        //计算月费率 =  
-        var t_yuefei_ = ((t_total - principal) / payments / principal) * 1000 + "";
-        var t_yuefei =   t_yuefei_.substring(0,4);
-        //如果结果没有超过JavaScript能表示的数字范围，且用户的输入也正确
-        //这里所展示的结果就是合法的
-        if (isFinite(t_hetong)) {
-            //将数据填充至输出字段的位置，四舍五入到小数点后两位数字
-            hetong.innerHTML = t_hetong;
-            shangbao.innerHTML = t_shangbao;
-            chesun.innerHTML = t_chesun;
-            shoufu.innerHTML = t_shoufu;
-            shoufubili.innerHTML = t_shoufubili.toFixed(2);
-            shouxu.innerHTML = t_shouxu.toFixed(2);
-            monthly.innerHTML = t_monthly.toFixed(2);
-            total.innerHTML = t_total.toFixed(2);
-            // xiaopiao.innerHTML = t_hetong;
-            // yixiang.innerHTML = t_shangbao;
-            // yixiangdai.innerHTML = t_hetong;
-            fujia.innerHTML = t_fujia;
-            yuefei.innerHTML = t_yuefei
-        } else {
-            //计算结果不是数字或者是无穷大，意味着输入数据是非法或不完整的
-            //清空之前的输出数据
-            hetong.innerHTML = "";
-            shangbao.innerHTML = "";
-            chesun.innerHTML = "";
-            shoufu.innerHTML = "";
-            shoufubili.innerHTML = "";
-            shouxu.innerHTML = "";
-            monthly.innerHTML = "";
-            total.innerHTML = "";
-            // xiaopiao.innerHTML = "";
-            // yixiang.innerHTML = "";
-            // yixiangdai.innerHTML = "";
-            fujia.innerHTML = "";
-            yuefei.innerHTML  = "";
-            
-        }
-    }
-</script>
+    </script>
 </body>
+
 </html>
